@@ -1,0 +1,17 @@
+property {
+    define {
+        n0token = n0.value == n1.value;
+        n1token = n1.value != n2.value;
+        n2token = n2.value != n3.value;
+        n3token = n3.value != n4.value;
+        n4token = n4.value != n0.value;
+
+        unique_leader = n0.value != n1.value && n0.value != n2.value && n0.value != n3.value && n0.value != n4.value;
+    }
+
+    LTL {
+        Unique_leader: F (unique_leader);
+        Deadlock: G (F (n0token || n1token || n2token || n3token || n4token));
+        Starvation: F (n0token) && F (n1token) && F (n2token) && F (n3token) && F (n4token);
+    }
+}
